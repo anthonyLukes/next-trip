@@ -1,0 +1,7 @@
+.container {
+  padding: 32px;
+}
+
+.container__section + .container__section {
+  margin-top: 32px;
+}
