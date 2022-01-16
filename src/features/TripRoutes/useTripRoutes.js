@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { getDirections, getRoutes } from '../../api';
 import { useHistory, useParams } from "react-router-dom";
 import { useQuery } from 'react-query'
@@ -7,7 +7,10 @@ import get from 'lodash/get'
 import formatDirections from '../../utils/formatDirections';
 
 function useNextTrip() {
+  // url params
   const history = useHistory()
+  const { route: urlRoute, direction: urlDirection } = useParams();
+  
   // Get routes
   const { data: routesData, isFetching: areRoutesFetching } = useQuery('routes', () => getRoutes('routes'))
 
@@ -25,50 +28,64 @@ function useNextTrip() {
 
   const handleRoutesChange = (event) => {
     const value = get(event, 'target.value')
-    setSelectedRoute(value);
     // clear directions when route changes
     setSelectedDirection('');
     // change url
-    history.push(`/${value}`)
+    if (value && value !== urlRoute) {
+      history.push(`/${value}`)
+    }
+    setSelectedRoute(value);
   }
 
   const handleDirectionChange = (event) => {
     const value = get(event, 'target.value')
     setSelectedDirection(value);
     // change url
-    history.push(`/${selectedRoute}/${value}`)
+    if (value) {
+      history.push(`/${selectedRoute}/${value}`)
+    }
   }
-
-  // handle url route changes
-  const { route: urlRoute, direction: urlDirection } = useParams();
   
-  // if url route doesn't match selected
-  // and routes aren't fetching
-  if (urlRoute !== selectedRoute && !areRoutesFetching) {
-    const isValidRoute = Boolean(routesData.filter(route => {
+  const isValidRoute = useMemo(() => {
+    return Boolean(routesData && routesData.filter(route => {
       const id = get(route, 'Route');
       return id === urlRoute
     }).length)
-    // if urlRoute is a fetched route
-    if (isValidRoute) {
-      setSelectedRoute(urlRoute);
-    }
-  }
+  }, [routesData, urlRoute]);
 
-  // if there is direction data
-  // url direction doesn't match selected
-  // routes aren't fetching
-  // and directions aren't fetching
-  if (directionsData && urlDirection !== selectedDirection && !areRoutesFetching && !areDirectionsFetching) {
-    const isValidDirection = Boolean(directionsData.filter(direction => {
-      const id = get(direction, 'Value');
-      return id === urlDirection
-    }).length)
-    // if urlDirection is a fetched direction
-    if (isValidDirection) {
-      setSelectedDirection(urlDirection);
+  const isValidDirection = useMemo(() => {
+    return Boolean(directionsData && directionsData.filter(direction => {
+          const id = get(direction, 'Value');
+          return id === urlDirection
+        }).length)
+  }, [directionsData, urlDirection]);
+
+  // change selectedRoute when route segment changes
+  useEffect(() => {
+    if (routesData && routesData.length) {
+      if (isValidRoute) {
+        if (selectedRoute !== urlRoute) {
+          setSelectedRoute(urlRoute);
+        }
+      } else {
+        setSelectedRoute('');
+      }
     }
-  }
+  }, [routesData, urlRoute])
+
+  // change selectedDirection when direction segment changes
+  useEffect(() => {
+    if (directionsData && directionsData.length) {
+      if (isValidDirection) {
+        if (selectedDirection !== urlDirection) {
+          setSelectedDirection(urlDirection);
+        }
+      } else {
+        setSelectedDirection('');
+      }
+    }
+  }, [directionsData, urlDirection])
+  
 
   return {
     routesData: formatRoutes(routesData),
