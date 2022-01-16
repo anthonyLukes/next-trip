@@ -5,8 +5,6 @@ import classes from './styles.module.css'
 const TripRoutes = () => {
   
   const { routesData, handleRoutesChange, selectedRoute, directionsData, handleDirectionChange, selectedDirection } = useTripRoutes()
-  console.log('selectedRoute', selectedRoute)
-  console.log('directionsData', directionsData)
   
   return (<div className={classes.container}>
     <div className={classes.container__section}>
