@@ -51,7 +51,6 @@ function useNextTrip() {
     }).length)
     // if urlRoute is a fetched route
     if (isValidRoute) {
-      // then set selectedRoute
       setSelectedRoute(urlRoute);
     }
   }
@@ -67,7 +66,6 @@ function useNextTrip() {
     }).length)
     // if urlDirection is a fetched direction
     if (isValidDirection) {
-      // then set selectedRoute
       setSelectedDirection(urlDirection);
     }
   }
