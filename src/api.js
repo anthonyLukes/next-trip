@@ -16,5 +16,10 @@ export const getDirections = async (route) => {
   return data;
 };
 
+export const getStops = async (route, direction) => {
+  const { data } = await api.get(`/Stops/${route}/${direction}?format=json`);
+  return data;
+};
+
 export default api;
 

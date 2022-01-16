@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { getDirections, getRoutes } from '../../api';
+import { getDirections, getRoutes, getStops } from '../../api';
 import { useHistory, useParams } from "react-router-dom";
 import { useQuery } from 'react-query'
 import formatRoutes from '../../utils/formatRoutes';
@@ -22,9 +22,14 @@ function useNextTrip() {
   // Get directions
   const shouldFetchDirections = Boolean(!areRoutesFetching && selectedRoute)
   const { data: directionsData, isFetching: areDirectionsFetching } = useQuery(['directions', selectedRoute], () => getDirections(selectedRoute), {
-    // The query will not execute until the userId exists
     enabled: shouldFetchDirections,
-  })
+  });
+
+  // Get stops
+  const shouldFetchStops = Boolean(!areRoutesFetching && selectedRoute && !areDirectionsFetching && selectedDirection)
+  const { data: stopsData, isFetching: areStopsFetching } = useQuery(['stops', selectedRoute, selectedDirection], () => getStops(selectedRoute, selectedDirection), {
+    enabled: shouldFetchStops,
+  });
 
   const handleRoutesChange = (event) => {
     const value = get(event, 'target.value')
@@ -88,12 +93,14 @@ function useNextTrip() {
   
 
   return {
-    routesData: formatRoutes(routesData),
+    routesData,
     handleRoutesChange,
     selectedRoute,
-    directionsData: formatDirections(directionsData),
+    directionsData,
     handleDirectionChange,
     selectedDirection,
+    stopsData,
+    areStopsFetching
   };
 }
 
