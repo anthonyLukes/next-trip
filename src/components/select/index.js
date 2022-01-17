@@ -1,10 +1,9 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import MuiSelect from '@mui/material/Select';
-
-// @todo: add proptypes
 
 const Select = (props) => {
   const { id, label, options, onChange, value, placeholder } = props;
@@ -17,13 +16,6 @@ const Select = (props) => {
         labelId={`label-${id}`}
         id={id}
         label={label}
-        // renderValue={(selected) => {
-        //   if (selected.length === 0) {
-        //     return <em>{placeholder}</em>;
-        //   }
-
-        //   return selected.join(', ');
-        // }}
       >
         {placeholder && (
           <MenuItem disabled value="">
@@ -43,6 +35,20 @@ const Select = (props) => {
       </MuiSelect>
     </FormControl>
   );
+};
+
+Select.propTypes = {
+  id: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    })
+  ),
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
 };
 
 export default Select;

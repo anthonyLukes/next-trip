@@ -2,9 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { getDirections, getRoutes, getStops } from '../../api';
 import { useHistory, useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import formatRoutes from '../../utils/formatRoutes';
 import get from 'lodash/get';
-import formatDirections from '../../utils/formatDirections';
 
 function useNextTrip() {
   // url params

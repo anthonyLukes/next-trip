@@ -2,7 +2,6 @@ import axios from 'axios';
 
 // could add headers here if needed
 const api = axios.create({
-  // @todo: replace with env vars
   baseURL: 'https://svc.metrotransit.org/NexTrip',
 });
 

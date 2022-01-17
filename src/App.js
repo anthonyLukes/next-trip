@@ -1,7 +1,17 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Header from './components/header';
 import TripRoutes from './features/TripRoutes';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#0097d0',
+    },
+  },
+});
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -14,14 +24,17 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Router>
-        <Switch>
-          <Route path="/:route?/:direction?">
-            <TripRoutes />
-          </Route>
-        </Switch>
-      </Router>
-      <ReactQueryDevtools initialIsOpen={false} />
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Switch>
+            <Route path="/:route?/:direction?">
+              <Header />
+              <TripRoutes />
+            </Route>
+          </Switch>
+        </Router>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }
