@@ -5,3 +5,30 @@
 .container__section + .container__section {
   margin-top: 32px;
 }
+
+.list {
+  list-style: none;
+  counter-reset: steps;
+  padding-left: 0;
+}
+
+.list__item {
+  counter-increment: steps;
+}
+
+.list__item + .list__item {
+  margin-top: 16px;
+}
+
+.list__item::before {
+  font-weight: bold;
+  content: counter(steps);
+  margin-right: 0.5rem;
+  background: #d32d2d;
+  color: white;
+  width: 1.5em;
+  height: 1.5em;
+  display: inline-grid;
+  place-items: center;
+  line-height: 1.5em;
+}

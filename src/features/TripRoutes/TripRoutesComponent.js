@@ -41,11 +41,16 @@ const TripRoutesComponent = (props) => {
       )}
       <div className={classes.container__section}>
         {stopsData && stopsData.length > 0 ? (
-          <ul>
-            {stopsData.map((stop) => (
-              <li key={stop.Value}>{stop.Text}</li>
-            ))}
-          </ul>
+          <>
+            <h2>Stops</h2>
+            <ol className={classes.list}>
+              {stopsData.map((stop) => (
+                <li className={classes.list__item} key={stop.Value}>
+                  {stop.Text}
+                </li>
+              ))}
+            </ol>
+          </>
         ) : null}
         {areStopsFetching && <div>Loading Stops...</div>}
       </div>
