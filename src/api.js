@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-// could add headers here if needed
+// use env variables to override for mocking for tests
 const api = axios.create({
-  baseURL: 'https://svc.metrotransit.org/NexTrip',
+  baseURL: process.env.REACT_APP_API_BASE,
 });
 
 export const getRoutes = async () => {

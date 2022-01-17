@@ -47,12 +47,14 @@ function useNextTrip() {
 
   const handleRoutesChange = (event) => {
     const value = get(event, 'target.value');
+    console.log('zzvalue', value)
     // clear directions when route changes
     setSelectedDirection('');
     // change url
     if (value && value !== urlRoute) {
       history.push(`/${value}`);
     }
+    console.log('value', value)
     setSelectedRoute(value);
   };
 

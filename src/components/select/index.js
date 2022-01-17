@@ -8,7 +8,7 @@ import MuiSelect from '@mui/material/Select';
 const Select = (props) => {
   const { id, label, options, onChange, value, placeholder } = props;
   return (
-    <FormControl fullWidth>
+    <FormControl id={`${id}-wrapper`} fullWidth>
       <InputLabel id={`label-${id}`}>{label}</InputLabel>
       <MuiSelect
         value={value}

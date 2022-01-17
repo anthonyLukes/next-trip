@@ -16,7 +16,7 @@ const TripRoutesComponent = (props) => {
   } = props;
 
   return (
-    <div className={classes.container}>
+    <div data-testid="trip-routes" className={classes.container}>
       <div className={classes.container__section}>
         <Select
           label="Routes"
