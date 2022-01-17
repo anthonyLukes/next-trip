@@ -2,11 +2,11 @@ const formatDirections = (input) => {
   try {
     return input.map(({ Text, Value }) => ({
       label: Text,
-      value: Value
-    }))
+      value: Value,
+    }));
   } catch (error) {
-    return input
+    return input;
   }
-}
+};
 
-export default formatDirections
+export default formatDirections;

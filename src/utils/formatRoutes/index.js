@@ -1,13 +1,13 @@
 const formatRoutes = (input) => {
   try {
-    return input.map(({Description, ProviderID, Route}) => ({
+    return input.map(({ Description, ProviderID, Route }) => ({
       label: Description,
       providerId: ProviderID,
-      value: Route
-    }))
+      value: Route,
+    }));
   } catch (error) {
-    return input
+    return input;
   }
-}
+};
 
-export default formatRoutes
+export default formatRoutes;

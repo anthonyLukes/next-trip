@@ -30,20 +30,19 @@ const Select = (props) => {
             <em>{placeholder}</em>
           </MenuItem>
         )}
-        {options && options.length && options.map(option => {
-          const {
-            label = '',
-            value = ''
-          } = option;
-          return (
-            <MenuItem key={value} value={value}>{label}</MenuItem>
-          )
-        })}
+        {options &&
+          options.length &&
+          options.map((option) => {
+            const { label = '', value = '' } = option;
+            return (
+              <MenuItem key={value} value={value}>
+                {label}
+              </MenuItem>
+            );
+          })}
       </MuiSelect>
     </FormControl>
   );
-}
- 
+};
+
 export default Select;
-
-

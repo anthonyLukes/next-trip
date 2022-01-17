@@ -22,4 +22,3 @@ export const getStops = async (route, direction) => {
 };
 
 export default api;
-

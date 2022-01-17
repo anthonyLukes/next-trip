@@ -1,18 +1,21 @@
 import { useEffect, useMemo, useState } from 'react';
 import { getDirections, getRoutes, getStops } from '../../api';
-import { useHistory, useParams } from "react-router-dom";
-import { useQuery } from 'react-query'
+import { useHistory, useParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
 import formatRoutes from '../../utils/formatRoutes';
-import get from 'lodash/get'
+import get from 'lodash/get';
 import formatDirections from '../../utils/formatDirections';
 
 function useNextTrip() {
   // url params
-  const history = useHistory()
+  const history = useHistory();
   const { route: urlRoute, direction: urlDirection } = useParams();
-  
+
   // Get routes
-  const { data: routesData, isFetching: areRoutesFetching } = useQuery('routes', () => getRoutes('routes'))
+  const { data: routesData, isFetching: areRoutesFetching } = useQuery(
+    'routes',
+    () => getRoutes('routes')
+  );
 
   // Selected Route
   const [selectedRoute, setSelectedRoute] = useState('');
@@ -20,49 +23,68 @@ function useNextTrip() {
   const [selectedDirection, setSelectedDirection] = useState('');
 
   // Get directions
-  const shouldFetchDirections = Boolean(!areRoutesFetching && selectedRoute)
-  const { data: directionsData, isFetching: areDirectionsFetching } = useQuery(['directions', selectedRoute], () => getDirections(selectedRoute), {
-    enabled: shouldFetchDirections,
-  });
+  const shouldFetchDirections = Boolean(!areRoutesFetching && selectedRoute);
+  const { data: directionsData, isFetching: areDirectionsFetching } = useQuery(
+    ['directions', selectedRoute],
+    () => getDirections(selectedRoute),
+    {
+      enabled: shouldFetchDirections,
+    }
+  );
 
   // Get stops
-  const shouldFetchStops = Boolean(!areRoutesFetching && selectedRoute && !areDirectionsFetching && selectedDirection)
-  const { data: stopsData, isFetching: areStopsFetching } = useQuery(['stops', selectedRoute, selectedDirection], () => getStops(selectedRoute, selectedDirection), {
-    enabled: shouldFetchStops,
-  });
+  const shouldFetchStops = Boolean(
+    !areRoutesFetching &&
+      selectedRoute &&
+      !areDirectionsFetching &&
+      selectedDirection
+  );
+  const { data: stopsData, isFetching: areStopsFetching } = useQuery(
+    ['stops', selectedRoute, selectedDirection],
+    () => getStops(selectedRoute, selectedDirection),
+    {
+      enabled: shouldFetchStops,
+    }
+  );
 
   const handleRoutesChange = (event) => {
-    const value = get(event, 'target.value')
+    const value = get(event, 'target.value');
     // clear directions when route changes
     setSelectedDirection('');
     // change url
     if (value && value !== urlRoute) {
-      history.push(`/${value}`)
+      history.push(`/${value}`);
     }
     setSelectedRoute(value);
-  }
+  };
 
   const handleDirectionChange = (event) => {
-    const value = get(event, 'target.value')
+    const value = get(event, 'target.value');
     setSelectedDirection(value);
     // change url
     if (value) {
-      history.push(`/${selectedRoute}/${value}`)
+      history.push(`/${selectedRoute}/${value}`);
     }
-  }
-  
+  };
+
   const isValidRoute = useMemo(() => {
-    return Boolean(routesData && routesData.filter(route => {
-      const id = get(route, 'Route');
-      return id === urlRoute
-    }).length)
+    return Boolean(
+      routesData &&
+        routesData.filter((route) => {
+          const id = get(route, 'Route');
+          return id === urlRoute;
+        }).length
+    );
   }, [routesData, urlRoute]);
 
   const isValidDirection = useMemo(() => {
-    return Boolean(directionsData && directionsData.filter(direction => {
+    return Boolean(
+      directionsData &&
+        directionsData.filter((direction) => {
           const id = get(direction, 'Value');
-          return id === urlDirection
-        }).length)
+          return id === urlDirection;
+        }).length
+    );
   }, [directionsData, urlDirection]);
 
   // change selectedRoute when route segment changes
@@ -76,7 +98,7 @@ function useNextTrip() {
         setSelectedRoute('');
       }
     }
-  }, [routesData, urlRoute])
+  }, [routesData, urlRoute]);
 
   // change selectedDirection when direction segment changes
   useEffect(() => {
@@ -89,8 +111,7 @@ function useNextTrip() {
         setSelectedDirection('');
       }
     }
-  }, [directionsData, urlDirection])
-  
+  }, [directionsData, urlDirection]);
 
   return {
     routesData,
@@ -100,8 +121,8 @@ function useNextTrip() {
     handleDirectionChange,
     selectedDirection,
     stopsData,
-    areStopsFetching
+    areStopsFetching,
   };
 }
 
-export default useNextTrip
+export default useNextTrip;
