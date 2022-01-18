@@ -27,7 +27,7 @@ const TripRoutesComponent = (props) => {
           placeholder="Select a Route"
         />
       </div>
-      {selectedRoute && (
+      {directionsData && directionsData.length > 0 && (
         <div className={classes.container__section}>
           <Select
             label="Direction"
@@ -43,9 +43,17 @@ const TripRoutesComponent = (props) => {
         {stopsData && stopsData.length > 0 ? (
           <>
             <h2>Stops</h2>
-            <ol className={classes.list}>
+            <ol
+              data-testid="stops-list"
+              data-testid="stops-list"
+              className={classes.list}
+            >
               {stopsData.map((stop) => (
-                <li className={classes.list__item} key={stop.Value}>
+                <li
+                  data-testid={stop.Value}
+                  className={classes.list__item}
+                  key={stop.Value}
+                >
                   {stop.Text}
                 </li>
               ))}

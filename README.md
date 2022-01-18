@@ -4,9 +4,14 @@
 
 The project utilizes the [Metro Transit Web Services](https://svc.metrotransit.org/nextrip). The application will show a list of stops for any of its given routes.
 
+## Technical Requirements
+
+This project runs in node 16.0.0 or higher. There's an `.nvmrc` included in the project to easily include the correct version of node for users that have NVM installed on their system.
+
 ## Project Assumptions
 
 - URL routing tracks changes to route and direction form controls. If URLs are changed manually the application will attempt to load the correct route and direction. If either are invalid the user controls value(s) will be reset without showing the user an error.
+- Project runs in the latest version of Chrome, Firefox, and Safari. No testing has been done in Internet Explorer or Edge.
 
 ## Available Scripts
 
