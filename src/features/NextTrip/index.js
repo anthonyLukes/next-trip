@@ -1,7 +1,7 @@
-import useTripRoutes from './useTripRoutes';
-import TripRoutesComponent from './TripRoutesComponent';
+import useNextTrip from './useNextTrip';
+import NextTripComponent from './NextTripComponent';
 
-const TripRoutes = () => {
+const NextTrip = () => {
   const {
     routesData,
     handleRoutesChange,
@@ -11,10 +11,10 @@ const TripRoutes = () => {
     selectedDirection,
     stopsData,
     areStopsFetching,
-  } = useTripRoutes();
+  } = useNextTrip();
 
   return (
-    <TripRoutesComponent
+    <NextTripComponent
       routesData={routesData}
       handleRoutesChange={handleRoutesChange}
       selectedRoute={selectedRoute}
@@ -27,4 +27,4 @@ const TripRoutes = () => {
   );
 };
 
-export default TripRoutes;
+export default NextTrip;

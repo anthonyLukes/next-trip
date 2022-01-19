@@ -98,7 +98,7 @@ function useNextTrip() {
         setSelectedRoute('');
       }
     }
-  }, [routesData, urlRoute]);
+  }, [routesData, urlRoute, isValidRoute]);
 
   // change selectedDirection when direction segment changes
   useEffect(() => {
@@ -111,7 +111,7 @@ function useNextTrip() {
         setSelectedDirection('');
       }
     }
-  }, [directionsData, urlDirection]);
+  }, [directionsData, urlDirection, isValidDirection]);
 
   return {
     routesData,

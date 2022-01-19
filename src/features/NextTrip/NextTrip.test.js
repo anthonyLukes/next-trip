@@ -5,7 +5,7 @@ import { setupServer } from 'msw/node';
 import { render, waitFor, screen, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-import TripRoutes from '.';
+import NextTrip from '.';
 import AppTestProvider from '../../test/AppTestProvider';
 
 import {
@@ -61,11 +61,11 @@ afterEach(() => {
 });
 afterAll(() => server.close());
 
-describe('Tests for TripRoutes ', () => {
+describe('Tests for NextTrip ', () => {
   test('test without url parameters', async () => {
     render(
       <AppTestProvider>
-        <TripRoutes />
+        <NextTrip />
       </AppTestProvider>
     );
 
@@ -110,7 +110,7 @@ describe('Tests for TripRoutes ', () => {
   test('test without url parameters', async () => {
     render(
       <AppTestProvider url={['/901/0']}>
-        <TripRoutes />
+        <NextTrip />
       </AppTestProvider>
     );
 

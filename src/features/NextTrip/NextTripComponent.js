@@ -3,7 +3,7 @@ import classes from './styles.module.css';
 import formatRoutes from '../../utils/formatRoutes';
 import formatDirections from '../../utils/formatDirections';
 
-const TripRoutesComponent = (props) => {
+const NextTripComponent = (props) => {
   const {
     routesData,
     handleRoutesChange,
@@ -45,7 +45,6 @@ const TripRoutesComponent = (props) => {
             <h2>Stops</h2>
             <ol
               data-testid="stops-list"
-              data-testid="stops-list"
               className={classes.list}
             >
               {stopsData.map((stop) => (
@@ -66,4 +65,4 @@ const TripRoutesComponent = (props) => {
   );
 };
 
-export default TripRoutesComponent;
+export default NextTripComponent;

@@ -3,7 +3,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Header from './components/header';
-import TripRoutes from './features/TripRoutes';
+import NextTrip from './features/NextTrip';
 
 const theme = createTheme({
   palette: {
@@ -29,7 +29,7 @@ function App() {
           <Switch>
             <Route path="/:route?/:direction?">
               <Header />
-              <TripRoutes />
+              <NextTrip />
             </Route>
           </Switch>
         </Router>
