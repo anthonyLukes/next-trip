@@ -72,7 +72,7 @@ describe('Tests for NextTrip ', () => {
     // trigger change on routes
     await waitFor(() => {
       userEvent.selectOptions(
-        screen.getByLabelText('Routes'),
+        screen.getByLabelText('Route'),
         'METRO Blue Line'
       );
     });
@@ -116,7 +116,7 @@ describe('Tests for NextTrip ', () => {
 
     // routes select value should be correct
     await waitFor(() => {
-      screen.getByLabelText('Routes');
+      screen.getByLabelText('Route');
       expect(
         screen.getByRole('option', { name: 'METRO Blue Line' }).selected
       ).toBe(true);

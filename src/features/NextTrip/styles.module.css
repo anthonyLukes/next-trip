@@ -6,6 +6,11 @@
   margin-top: 32px;
 }
 
+.desc {
+  font-style: italic;
+  margin: 2em 0;
+}
+
 .list {
   list-style: none;
   counter-reset: steps;

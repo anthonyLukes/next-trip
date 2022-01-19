@@ -37,9 +37,10 @@ const NextTripComponent = (props) => {
           </Alert>
         </div>
       )}
+      <p className={classes.desc}>To see stops select a route and direction.</p>
       <div className={classes.container__section}>
         <Select
-          label="Routes"
+          label="Route"
           id="routes"
           onChange={handleRoutesChange}
           options={formatRoutes(routesData)}
