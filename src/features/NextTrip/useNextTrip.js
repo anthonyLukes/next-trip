@@ -10,10 +10,12 @@ function useNextTrip() {
   const { route: urlRoute, direction: urlDirection } = useParams();
 
   // Get routes
-  const { data: routesData, isFetching: areRoutesFetching } = useQuery(
+  const { data: routes, isFetching: areRoutesFetching, error: routesError } = useQuery(
     'routes',
     () => getRoutes('routes')
   );
+  const routesData = get(routes, 'data');
+  const routesErrorMessage = get(routesError, 'message');
 
   // Selected Route
   const [selectedRoute, setSelectedRoute] = useState('');
@@ -22,13 +24,15 @@ function useNextTrip() {
 
   // Get directions
   const shouldFetchDirections = Boolean(!areRoutesFetching && selectedRoute);
-  const { data: directionsData, isFetching: areDirectionsFetching } = useQuery(
+  const { data: directions, isFetching: areDirectionsFetching, error: directionsError } = useQuery(
     ['directions', selectedRoute],
     () => getDirections(selectedRoute),
     {
       enabled: shouldFetchDirections,
     }
   );
+  const directionsData = get(directions, 'data');
+  const directionsErrorMessage = get(directionsError, 'message');
 
   // Get stops
   const shouldFetchStops = Boolean(
@@ -37,13 +41,15 @@ function useNextTrip() {
       !areDirectionsFetching &&
       selectedDirection
   );
-  const { data: stopsData, isFetching: areStopsFetching } = useQuery(
+  const { data: stops, isFetching: areStopsFetching, error: stopsError } = useQuery(
     ['stops', selectedRoute, selectedDirection],
     () => getStops(selectedRoute, selectedDirection),
     {
       enabled: shouldFetchStops,
     }
   );
+  const stopsData = get(stops, 'data')
+  const stopsErrorMessage = get(stopsError, 'message')
 
   const handleRoutesChange = (event) => {
     const value = get(event, 'target.value');
@@ -115,12 +121,15 @@ function useNextTrip() {
 
   return {
     routesData,
+    routesErrorMessage,
     handleRoutesChange,
     selectedRoute,
     directionsData,
+    directionsErrorMessage,
     handleDirectionChange,
     selectedDirection,
     stopsData,
+    stopsErrorMessage,
     areStopsFetching,
   };
 }

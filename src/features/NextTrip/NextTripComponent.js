@@ -1,10 +1,13 @@
+import Alert from '@mui/material/Alert';
 import Select from '../../components/select';
 import classes from './styles.module.css';
 import formatRoutes from '../../utils/formatRoutes';
 import formatDirections from '../../utils/formatDirections';
+import { useEffect, useState } from 'react';
 
 const NextTripComponent = (props) => {
   const {
+    errorMessage,
     routesData,
     handleRoutesChange,
     selectedRoute,
@@ -15,8 +18,19 @@ const NextTripComponent = (props) => {
     areStopsFetching,
   } = props;
 
+  const [showError, setShowError] = useState(false)
+
+  useEffect(() => {
+    setShowError(Boolean(errorMessage));
+  }, [errorMessage])
+
+  const hideErrorMessage = () => {
+    setShowError(false)
+  }
+
   return (
     <div data-testid="trip-routes" className={classes.container}>
+      {showError && <div className={classes.container__section}><Alert severity='error' onClose={hideErrorMessage}>{errorMessage}</Alert></div>}
       <div className={classes.container__section}>
         <Select
           label="Routes"
