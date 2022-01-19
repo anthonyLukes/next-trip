@@ -7,19 +7,19 @@ const api = axios.create({
 
 export const getRoutes = async () => {
   return api.get('/Routes', {
-    format: 'json'
+    format: 'json',
   });
 };
 
 export const getDirections = async (route) => {
   return api.get(`/Directions/${route}`, {
-    format: 'json'
+    format: 'json',
   });
 };
 
 export const getStops = async (route, direction) => {
   return api.get(`/Stops/${route}/${direction}`, {
-    format: 'json'
+    format: 'json',
   });
 };
 

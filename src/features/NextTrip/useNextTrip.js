@@ -10,10 +10,11 @@ function useNextTrip() {
   const { route: urlRoute, direction: urlDirection } = useParams();
 
   // Get routes
-  const { data: routes, isFetching: areRoutesFetching, error: routesError } = useQuery(
-    'routes',
-    () => getRoutes('routes')
-  );
+  const {
+    data: routes,
+    isFetching: areRoutesFetching,
+    error: routesError,
+  } = useQuery('routes', () => getRoutes('routes'));
   const routesData = get(routes, 'data');
   const routesErrorMessage = get(routesError, 'message');
 
@@ -24,7 +25,11 @@ function useNextTrip() {
 
   // Get directions
   const shouldFetchDirections = Boolean(!areRoutesFetching && selectedRoute);
-  const { data: directions, isFetching: areDirectionsFetching, error: directionsError } = useQuery(
+  const {
+    data: directions,
+    isFetching: areDirectionsFetching,
+    error: directionsError,
+  } = useQuery(
     ['directions', selectedRoute],
     () => getDirections(selectedRoute),
     {
@@ -41,15 +46,19 @@ function useNextTrip() {
       !areDirectionsFetching &&
       selectedDirection
   );
-  const { data: stops, isFetching: areStopsFetching, error: stopsError } = useQuery(
+  const {
+    data: stops,
+    isFetching: areStopsFetching,
+    error: stopsError,
+  } = useQuery(
     ['stops', selectedRoute, selectedDirection],
     () => getStops(selectedRoute, selectedDirection),
     {
       enabled: shouldFetchStops,
     }
   );
-  const stopsData = get(stops, 'data')
-  const stopsErrorMessage = get(stopsError, 'message')
+  const stopsData = get(stops, 'data');
+  const stopsErrorMessage = get(stopsError, 'message');
 
   const handleRoutesChange = (event) => {
     const value = get(event, 'target.value');

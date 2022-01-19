@@ -18,19 +18,25 @@ const NextTripComponent = (props) => {
     areStopsFetching,
   } = props;
 
-  const [showError, setShowError] = useState(false)
+  const [showError, setShowError] = useState(false);
 
   useEffect(() => {
     setShowError(Boolean(errorMessage));
-  }, [errorMessage])
+  }, [errorMessage]);
 
   const hideErrorMessage = () => {
-    setShowError(false)
-  }
+    setShowError(false);
+  };
 
   return (
     <div data-testid="trip-routes" className={classes.container}>
-      {showError && <div className={classes.container__section}><Alert severity='error' onClose={hideErrorMessage}>{errorMessage}</Alert></div>}
+      {showError && (
+        <div className={classes.container__section}>
+          <Alert severity="error" onClose={hideErrorMessage}>
+            {errorMessage}
+          </Alert>
+        </div>
+      )}
       <div className={classes.container__section}>
         <Select
           label="Routes"
@@ -57,10 +63,7 @@ const NextTripComponent = (props) => {
         {stopsData && stopsData.length > 0 ? (
           <>
             <h2>Stops</h2>
-            <ol
-              data-testid="stops-list"
-              className={classes.list}
-            >
+            <ol data-testid="stops-list" className={classes.list}>
               {stopsData.map((stop) => (
                 <li
                   data-testid={stop.Value}

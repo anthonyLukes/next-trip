@@ -16,7 +16,8 @@ const NextTrip = () => {
     areStopsFetching,
   } = useNextTrip();
 
-  const errorMessage = routesErrorMessage || directionsErrorMessage || stopsErrorMessage;
+  const errorMessage =
+    routesErrorMessage || directionsErrorMessage || stopsErrorMessage;
 
   return (
     <NextTripComponent
